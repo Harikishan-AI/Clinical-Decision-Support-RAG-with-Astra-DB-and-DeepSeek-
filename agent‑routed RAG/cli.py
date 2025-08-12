@@ -7,7 +7,7 @@ from .vectorstore import (
     build_cassandra_vectorstore,
     ensure_index,
 )
-from .tools import create_wikipedia_tool
+from .tools import create_web_search_tool
 from .router import create_router
 from .graph import build_graph
 
@@ -41,9 +41,25 @@ def run_query(app, question: str) -> None:
 def main() -> None:
     load_env()
 
+    # Enable LangSmith tracing if env vars are present
+    try:
+        import os
+        # Prefer modern LANGCHAIN_* vars
+        if os.environ.get("LANGCHAIN_API_KEY") and os.environ.get("LANGCHAIN_PROJECT"):
+            os.environ.setdefault("LANGCHAIN_TRACING_V2", "true")
+            os.environ.setdefault("LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com")
+        # Back-compat: map LANGSMITH_* to LANGCHAIN_*
+        elif os.environ.get("LANGSMITH_API_KEY") and os.environ.get("LANGSMITH_PROJECT"):
+            os.environ.setdefault("LANGCHAIN_TRACING_V2", "true")
+            os.environ.setdefault("LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com")
+            os.environ.setdefault("LANGCHAIN_API_KEY", os.environ["LANGSMITH_API_KEY"])  # type: ignore[index]
+            os.environ.setdefault("LANGCHAIN_PROJECT", os.environ["LANGSMITH_PROJECT"])  # type: ignore[index]
+    except Exception:
+        pass
+
     parser = argparse.ArgumentParser(
         description=(
-            "Medical CDS RAG with LangChain+LangGraph routing between Astra vectorstore and Wikipedia, using DeepSeek via Groq."
+            "Medical CDS RAG with LangChain+LangGraph routing between Astra vectorstore and SerpAPI web search, using DeepSeek via Groq."
         )
     )
     parser.add_argument(
@@ -76,9 +92,9 @@ def main() -> None:
     ensure_index(vector_store, urls)
 
     retriever = vector_store.as_retriever(search_kwargs={"k": 4})
-    wiki_tool = create_wikipedia_tool()
+    web_search_tool = create_web_search_tool()
     question_router = create_router()
-    app = build_graph(question_router, retriever, wiki_tool)
+    app = build_graph(question_router, retriever, web_search_tool)
 
     run_query(app, args.question)
 

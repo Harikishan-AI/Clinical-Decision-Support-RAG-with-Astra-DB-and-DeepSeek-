@@ -4,7 +4,7 @@ from .config import require_env
 
 
 def create_router():
-    """Create an LLM router (Groq) that chooses between vectorstore and Wikipedia."""
+    """Create an LLM router (Groq) that chooses between vectorstore and web search (SerpAPI)."""
     from typing import Literal
     from langchain_core.pydantic_v1 import BaseModel, Field
     from langchain_core.prompts import ChatPromptTemplate
@@ -16,10 +16,10 @@ def create_router():
     class RouteQuery(BaseModel):
         """Route a user query to the most relevant datasource."""
 
-        datasource: Literal["vectorstore", "wiki_search"] = Field(
+        datasource: Literal["vectorstore", "web_search"] = Field(
             ...,
             description=(
-                "Choose 'vectorstore' for clinical guidelines, diagnosis, meds, procedures, or 'wiki_search' otherwise."
+                "Choose 'vectorstore' for clinical guidelines, diagnosis, meds, procedures, or 'web_search' otherwise."
             ),
         )
 
@@ -27,11 +27,11 @@ def create_router():
     structured_llm_router = llm.with_structured_output(RouteQuery)
 
     system = (
-        "You route user questions to either a vectorstore or Wikipedia.\n"
+        "You route user questions to either a vectorstore or general web search via SerpAPI.\n"
         "The vectorstore contains medical clinical decision support content: clinical guidelines, medication safety info, "
         "diagnostic criteria, and care pathways.\n"
         "Use the vectorstore for questions about diagnoses, treatments, medications, dosing, contraindications, "
-        "clinical guidelines, and care pathways. Otherwise, use wiki_search."
+        "clinical guidelines, and care pathways. Otherwise, use web_search."
     )
     route_prompt = ChatPromptTemplate.from_messages(
         [("system", system), ("human", "{question}")]
