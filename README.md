@@ -30,19 +30,6 @@ python -m venv .venv
 ./.venv/Scripts/python.exe -m pip install -r requirements.txt
 ```
 
-3) Configure environment variables:
-
-```powershell
-Copy-Item .env.example .env
-# Edit .env to set: ASTRA_DB_APPLICATION_TOKEN, ASTRA_DB_ID, GROQ_API_KEY
-```
-
-4) Run the app:
-
-```powershell
-./.venv/Scripts/python.exe -m agentic_rag --question "First-line therapy for community-acquired pneumonia in adults?" --table "medical_cds_docs"
-```
-
 ### Configuration
 Copy `.env.example` to `.env` and set:
 
@@ -53,6 +40,7 @@ GROQ_API_KEY=...
 # Optional override (defaults to deepseek-r1-distill-llama-70b)
 # GROQ_MODEL=deepseek-r1-distill-llama-70b
 ```
+
 
 
 
