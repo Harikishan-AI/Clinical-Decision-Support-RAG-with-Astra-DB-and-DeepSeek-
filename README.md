@@ -3,7 +3,7 @@
 
 An **agent‑routed Retrieval‑Augmented Generation (RAG)** system for **Clinical Decision Support (CDS)**, combining:
 
-- **Astra DB Vector Database** — indexes and retrieves clinical guidelines, medication safety data, dosing protocols, contraindications, diagnostic criteria, and care pathways for evidence‑grounded answers.  
+- **Astra DB Vector Database** — indexes and retrieves clinical guidelines, medication safety data, dosing protocols, diagnostic criteria, and care pathways for evidence‑grounded answers.  
 - **SerpAPI Web Search** — fallback search tool (via LangChain) for broader or out‑of‑domain medical background.  
 - **LangGraph** — orchestrates routing and workflow between retrieval and fallback tools.  
 - **DeepSeek LLM (via Groq API)** — performs intelligent query routing and reasoning.  
@@ -30,3 +30,4 @@ An **agent‑routed Retrieval‑Augmented Generation (RAG)** system for **Clinic
 - **Groq API Key** — for DeepSeek LLM
 - **SerpAPI API Key** — for web search fallback
 - (Optional, Recommended) **LangSmith API Key** — for monitoring
+
