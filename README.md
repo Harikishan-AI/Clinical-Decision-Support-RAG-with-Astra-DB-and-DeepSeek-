@@ -13,24 +13,6 @@ Routing is performed by a Groq-served LLM.
 - **Wikipedia** fallback tool
 - **Environment-based configuration** via `.env`
 
-### Project Structure
-```
-agentic_rag/
-  __init__.py
-  __main__.py
-  cli.py
-  config.py
-  data_loading.py
-  graph.py
-  router.py
-  tools.py
-  vectorstore.py
-requirements.txt
-.env.example
-.gitignore
-README.md
-```
-
 ### Prerequisites
 - Python 3.10+ recommended
 - DataStax Astra DB credentials (Application Token and Database ID)
@@ -78,5 +60,6 @@ GROQ_API_KEY=...
 
 ### License
 MIT
+
 
 
