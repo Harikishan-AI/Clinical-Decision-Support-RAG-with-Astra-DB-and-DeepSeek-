@@ -54,12 +54,6 @@ GROQ_API_KEY=...
 # GROQ_MODEL=deepseek-r1-distill-llama-70b
 ```
 
-### Notes
-- The first run will attempt to index example sources into the Cassandra table if it's empty. You can update URLs inside `agentic_rag/cli.py`.
-- If you encounter import differences across LangChain versions, the code includes small compatibility shims.
-
-### License
-MIT
 
 
 
