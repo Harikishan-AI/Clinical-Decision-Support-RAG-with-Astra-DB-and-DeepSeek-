@@ -31,3 +31,25 @@ An **agent‑routed Retrieval‑Augmented Generation (RAG)** system for **Clinic
 - **SerpAPI API Key** — for web search fallback
 - (Optional, Recommended) **LangSmith API Key** — for monitoring
 
+
+---
+
+## **How It Works**
+1. **Query Routing** — The Groq‑hosted DeepSeek LLM determines whether the user’s query should be answered from the **Astra DB vectorstore** or **SerpAPI search**.  
+2. **Semantic Retrieval** — Astra DB stores embeddings of medical guidelines and retrieves the most relevant chunks.  
+3. **Fallback Search** — If the LLM detects the query is out‑of‑scope for the vectorstore, SerpAPI provides fresh web search results.  
+4. **LangGraph Orchestration** — A state machine manages transitions between routing, retrieval, and responding.  
+5. **Monitoring & Evaluation** — LangSmith captures traces, evaluates retrieval precision, and logs latency/performance metrics.
+
+---
+
+## **Extending the Pipeline**
+- **Add PubMed/PMC**: Plug in API tools for peer‑reviewed medical literature.  
+- **Add Confidence Scoring**: Use verifier nodes to re‑query if results are low quality.  
+- **Multi‑Tool Planning**: Upgrade routing to agentic loops for more complex reasoning.
+
+---
+
+## **License**
+This project is released under the [MIT License](LICENSE).
+
