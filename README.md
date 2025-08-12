@@ -2,10 +2,6 @@
 
 Built an agent‑routed Clinical RAG system combining Astra DB as the vector database with DeepSeek (via ChatGroq) and LangGraph orchestration for intelligent query routing. The pipeline indexes clinical guidelines, medication safety data, dosing protocols, contraindications, diagnostic criteria, and care pathways into Astra DB embeddings for fast semantic retrieval, while an LLM directs out‑of‑domain queries to a Wikipedia fallback. Modular LangGraph nodes (retrieve, fallback, respond) enable low‑latency, scalable retrieval and easy extension (e.g., PubMed/PMC tools). Designed with agentic RAG principles—LLM‑based tool choice and query analysis—with a clear upgrade path to iterative verification and multi‑tool planning. Environment‑based .env configuration ensures portability and Astra DB’s vector‑native capabilities improve recall and relevance for clinical decision support.
 
-If you’d like, I can also make an even shorter résumé‑friendly one‑liner from this so it’s perfect for bullet points.
-Do you want me to make that too?
-An end-to-end, modular RAG system that routes clinical questions between:
-
 - **Vectorstore (Astra DB)** for clinical guidelines, meds, dosing, contraindications, diagnostic criteria, and care pathways
 - **Wikipedia** as a fallback for general medical background
 
@@ -44,6 +40,7 @@ GROQ_API_KEY=...
 # Optional override (defaults to deepseek-r1-distill-llama-70b)
 # GROQ_MODEL=deepseek-r1-distill-llama-70b
 ```
+
 
 
 
